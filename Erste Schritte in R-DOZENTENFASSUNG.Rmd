@@ -1,0 +1,106 @@
+---
+title: "Erste Schritte in R - DOZENTENFASSUNG"
+author: "Norman Markgraf"
+date: "30 März 2019"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(mosaic)
+```
+
+## Vorlesung vom 30.3.2019
+
+Wichtig, eine R markdowan Datei muss **immer** die Endung ".Rmd" haben. Somst gehgt das hier nicht!
+
+Zu Beginn einer jeder R Vorlesung müssen wir das Paket "MOSAIC" laden:
+
+```{r}
+library(mosaic)
+```
+
+
+Wir laden den internen Datensatz "Alcohol" mir dem Befehl:
+
+```{r}
+data(Alcohol)
+```
+
+Man kann sich die ersten Zeilen des Datensatz ausgeben lassen mit:
+
+```{r}
+# Und ja, das hier ist ein Kommentar! :-P
+head(Alcohol)  # Die ersten Zeilen
+```
+
+Und auch letzten Zeilen des Datensatz ausgeben lassen mit:
+
+```{r}
+# Und ja, das hier ist ein Kommentar! :-P
+tail(Alcohol)  # die letzten Zeilen
+```
+
+
+Was seht hier an Daten aus Deutschland? - Dafür filtern wir alles auf "counter" gleich "Germany":
+
+```{r}
+Alcohol %>% filter(country == "Germany")
+```
+
+
+Wir wollen den Datensatz auf das Jahr 2008 beschränken und nur noch die Spalten für das Land und den pro Kopf Alkoholverbrauch im Datensatz belassen.
+
+Das erreichen wir mir:
+```{r}
+Alcohol %>%
+  filter(year == 2008) %>%
+  select(country, alcohol) -> Alcohol.2008
+```
+
+Wenn wir den Datensatz sotieren wollen, dann "ordnen wir ihn an":
+
+```{r}
+Alcohol.2008.sort <- Alcohol.2008 %>% 
+  arrange(alcohol)
+
+```
+
+
+```{r}
+head(Alcohol.2008.sort)
+```
+
+```{r}
+tail(Alcohol.2008.sort)
+```
+
+Wir wollen jedem Land seinen Rang zuweisen:
+
+```{r}
+Alcohol.2008.rank <- Alcohol.2008 %>% 
+  mutate(rank = rank(alcohol))
+```
+
+Wie lautet der Rang von Deutschland, Niederlande, Indien und China?
+
+```{r}
+Alcohol.2008.rank %>%
+  filter(
+    country == "Germany" |
+    country == "Netherlands" |
+    country == "India" |
+    country == "Austria" |
+    country == "China") 
+```
+
+Wie werden die Daten denn in R gespeichert?
+
+```{r}
+str(Alcohol)
+```
+
+
+
+
+
