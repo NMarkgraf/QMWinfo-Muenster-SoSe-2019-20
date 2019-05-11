@@ -101,6 +101,132 @@ str(Alcohol)
 ```
 
 
+## Vorlesung vom 11.05.2019
+
+Als erstes laden wir das Paket Mosaic:
+
+```{r}
+library(mosaic)
+```
+
+Dann laden wir die tipping-Daten auf den Rechner ..
+```{r}
+download.file("https://goo.gl/whKjnl", destfile = "tips.csv")
+```
+
+... und dann in den Speicher:
+```{r}
+tips <- read.csv2("tips.csv")
+```
+
+Wie sieht die (R-interne) Stuktur der Daten aus:
+```{r}
+str(tips)
+```
+
+Analyse des Geschlechts der Rechnungs*zahlerinnen:
+
+```{r}
+gf_bar( ~ sex, data=tips) %>% 
+  gf_labs(
+    title = "Rechnungszahler*innen",
+    y = "Anzahl",
+    x = "Geschlecht"  )
+```
+
+Die Kennzahl dazu:
+
+```{r}
+prop( ~ sex, success="Female", data=tips)
+```
 
 
+Tabellen:
+
+Absolute Häufigkeiten $h_i$:
+```{r}
+tally( ~ sex, data=tips)
+```
+
+Relative Häufigkeiten $f_i = \frac{h_i}{n}$:
+```{r}
+tally( ~ sex, 
+       format="proportion",
+       data=tips)
+```
+
+
+```{r}
+gf_bar( ~ sex | time, data=tips)
+```
+
+```{r}
+gf_bar( ~ sex | day, data=tips)
+```
+
+
+```{r}
+gf_bar( ~ sex | size, data=tips)
+```
+
+
+```{r}
+gf_bar( ~ sex | smoker, data=tips)
+```
+
+
+```{r}
+tally( ~ sex | time, data=tips)
+```
+
+```{r}
+tally( ~ sex | time, 
+       format = "proportion", 
+       data=tips)
+```
+
+
+
+
+## Metrische Variabeln
+
+Histogramm:
+```{r}
+gf_histogram( ~ total_bill, binwidth=10, center=5, data=tips)
+```
+
+
+```{r}
+inspect(tips)
+```
+
+
+
+```{r}
+favstats( ~ total_bill, data=tips)
+```
+
+## Offene Übung 58:
+
+Die Idee: "( ~ total_bill | smoker, data=tips)"
+
+Ein Histogramm:
+```{r}
+gf_histogram( ~ total_bill | smoker, data=tips)
+```
+
+Ein Boxplot:
+```{r}
+gf_boxplot( ~ total_bill | smoker, data=tips)
+```
+
+Ein paar Kennzahlen:
+```{r}
+favstats( ~ total_bill | smoker, data=tips)
+```
+
+Eine Kennzahl fehlt noch:
+```{r}
+iqr( ~ total_bill | smoker, data=tips)
+```
 
