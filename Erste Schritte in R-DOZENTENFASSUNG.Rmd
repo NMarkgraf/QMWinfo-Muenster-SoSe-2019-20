@@ -230,3 +230,48 @@ Eine Kennzahl fehlt noch:
 iqr( ~ total_bill | smoker, data=tips)
 ```
 
+
+## Vorlesung vom 01.06.2019
+
+
+Als erstes laden wir das Paket Mosaic:
+
+```{r}
+library(mosaic)
+```
+
+Und dann in den Speicher:
+```{r}
+tips <- read.csv2("tips.csv")
+```
+
+
+Wir simulieren die Münzwürfe wie folgt:
+
+```{r}
+set.seed(2009)
+
+muenzverteilung <- do(1000) * rflip(n=10)
+```
+
+
+```{r}
+gf_bar( ~ heads, data=muenzverteilung)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
